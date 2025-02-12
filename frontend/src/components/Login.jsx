@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Toaster } from "./ui/sonner";
+// import { Toaster } from "./ui/sonner";
 
 const page = () => {
   const navigate = useNavigate();
@@ -8,27 +8,27 @@ const page = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  // http://192.168.1.34:5000/
+  // https://chatapplication-mern.onrender.com
+
   const submithandler = async () => {
     try {
-      const result = await fetch(
-        "https://chatapplication-mern.onrender.com/login",
-        {
-          method: "post",
-          body: JSON.stringify({ email, password }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const result = await fetch("http://192.168.1.34:5000/login", {
+        method: "post",
+        body: JSON.stringify({ email, password }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       const data = await result.json();
       console.log(data);
       if (result.ok) {
-        Toaster.success(data.message);
+        // Toaster.success(data.message);
         setEmail(""), setPassword("");
         navigate(`/box/${data.users.username}`);
       }
     } catch (error) {
-      Toaster.success(data.message);
+      // Toaster.success(data.message);
     }
   };
 
