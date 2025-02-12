@@ -10,13 +10,16 @@ const page = () => {
 
   const submithandler = async () => {
     try {
-      const result = await fetch("http://192.168.1.34:5000/login", {
-        method: "post",
-        body: JSON.stringify({ email, password }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const result = await fetch(
+        "https://chatapplication-mern.onrender.com/login",
+        {
+          method: "post",
+          body: JSON.stringify({ email, password }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const data = await result.json();
       console.log(data);
       if (result.ok) {

@@ -3,7 +3,7 @@ import { MdOutlineDeleteOutline } from "react-icons/md";
 import { useParams } from "react-router-dom";
 import { io } from "socket.io-client";
 
-const socket = io("http://192.168.1.34:5000");
+const socket = io("https://chatapplication-mern.onrender.com");
 
 const Box = () => {
   const param = useParams();
@@ -14,7 +14,9 @@ const Box = () => {
 
   const getMessage = async () => {
     try {
-      const response = await fetch("http://192.168.1.34:5000/getmessage");
+      const response = await fetch(
+        "https://chatapplication-mern.onrender.com/getmessage"
+      );
       const data = await response.json();
       if (data && Array.isArray(data.message)) {
         setMess(data.message);
@@ -29,21 +31,23 @@ const Box = () => {
   useEffect(() => {
     getMessage();
 
-    // **Socket.IO इवेंट लिसनर जोड़ें**
     socket.on("refreshMessages", () => {
-      getMessage(); // जब भी कोई मैसेज जोड़ा या डिलीट हो, सभी मैसेज अपडेट करें
+      getMessage();
     });
 
     return () => {
-      socket.off("refreshMessages"); // क्लीनअप करें
+      socket.off("refreshMessages");
     };
   }, []);
 
   const deleteOne = async (id) => {
     try {
-      const res = await fetch(`http://192.168.1.34:5000/message/${id}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `https://chatapplication-mern.onrender.com/message/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       if (res.ok) {
         setMess((prevMess) => prevMess.filter((item) => item._id !== id));
@@ -55,13 +59,16 @@ const Box = () => {
 
   const sending = async () => {
     try {
-      const result = await fetch("http://192.168.1.34:5000/message", {
-        method: "POST",
-        body: JSON.stringify({ text, name }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const result = await fetch(
+        "https://chatapplication-mern.onrender.com/message",
+        {
+          method: "POST",
+          body: JSON.stringify({ text, name }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const data = await result.json();
 
       if (result.ok) {

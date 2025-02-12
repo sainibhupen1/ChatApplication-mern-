@@ -6,9 +6,19 @@ const Home = () => {
   return (
     <div>
       <h1>home</h1>
-      <p onClick={() => navigate("/signup")}>signup</p>
+      <p
+        onClick={() => navigate("/signup")}
+        className="cursor-pointer text-sky-500"
+      >
+        signup
+      </p>
       <br />
-      <p onClick={() => navigate("/login")}>login</p>
+      <p
+        onClick={() => navigate("/login")}
+        className="cursor-pointer text-sky-500"
+      >
+        login
+      </p>
     </div>
   );
 };
